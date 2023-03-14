@@ -6,15 +6,16 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Toaster, toast } from "react-hot-toast";
 
-type Instrument = {
+export type Instrument = {
   symbol: string;
   state: string;
 };
 
-type Order = {
+export type Order = {
   id: string;
   symbol: string;
   side: string;
@@ -262,14 +263,81 @@ export default function Home() {
     }
   };
 
+  const saveSymbols = async () => {
+    const input = instruments.map((value: Instrument) => {
+      return {
+        name: value.symbol,
+        state: value.state,
+      };
+    });
+
+    const res = await fetch("/api/symbols", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input.slice(0, 700)),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  };
+
+  const saveOrders = async () => {
+    const input = orders.map(({ id, symbol, side }: Order) => {
+      return {
+        id,
+        symbol,
+        side,
+      };
+    });
+
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input.slice(0, 700)),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  };
+
   return (
     <main className="grid grid-cols-2 gap-3">
-      <div>
-        <InstumentsTable data={instruments} />
+      <Toaster position="top-right" />
+      <div className="col-span-2 flex w-full bg-white rounded-lg py-3 px-5 shadow justify-between items-center">
+        <div>
+          <h1 className="text-2xl">Orders & Symbols Table</h1>
+          <p className="block text-gray-500 text-sm">
+            To store the orders and symbols in the local storage press save
+            button
+          </p>
+        </div>
+        <div className="flex flex-col space-y-2">
+          <button
+            className="px-5 py-2 border-2 rounded-lg border-gray-200 hover:bg-gray-100"
+            onClick={saveSymbols}
+          >
+            Save Symbols
+          </button>
+          <button
+            className="px-5 py-2 border-2 rounded-lg border-gray-200 hover:bg-gray-100"
+            onClick={saveOrders}
+          >
+            Save Orders
+          </button>
+        </div>
       </div>
-      <div>
-        <OrdersTable data={orders} />
-      </div>
+      <InstumentsTable data={instruments} />
+      <OrdersTable data={orders} />
     </main>
   );
 }

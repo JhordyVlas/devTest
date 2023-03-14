@@ -12,11 +12,11 @@ datasource db {
 
 model Symbols{
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   state String
 }
 
-model Order {
+model Orders {
   id BigInt @id
   symbol String
   side String
