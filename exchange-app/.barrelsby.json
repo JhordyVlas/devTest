@@ -1,4 +1,4 @@
 {
-  "directory": "./src/common/hooks",
+  "directory": ["./src/common/hooks", "./src/components/layouts"],
   "delete": true
 }
