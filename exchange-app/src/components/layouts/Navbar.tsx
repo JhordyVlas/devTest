@@ -11,7 +11,7 @@ export const Navbar = () => {
         <div className="flex space-x-1 items-center transition-all duration-300 ease-in-out">
           <Link
             href="/"
-            className={`hover:bg-gray-200 p-3 rounded-lg hover:text-blue-600 ${
+            className={`hover:bg-gray-100 p-3 rounded-lg hover:text-blue-600 ${
               pathname == "/" ? "text-blue-600" : "text-gray-500"
             }`}
           >
@@ -19,7 +19,7 @@ export const Navbar = () => {
           </Link>
           <Link
             href="/stored"
-            className={`hover:bg-gray-200 p-3 rounded-lg hover:text-blue-600 ${
+            className={`hover:bg-gray-100 p-3 rounded-lg hover:text-blue-600 ${
               pathname == "/stored" ? "text-blue-600" : "text-gray-500"
             }`}
           >
