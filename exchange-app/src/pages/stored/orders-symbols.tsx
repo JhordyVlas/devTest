@@ -20,13 +20,25 @@ export default function OrdersAndSymbols({ orders, symbols }: Props) {
         <div>
           <h1 className="text-2xl">Saved Orders & Symbols Table</h1>
           <p className="block text-gray-500 text-sm">
-            To store the orders and symbols in the local storage press save
-            button
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores
+            reiciendis
           </p>
         </div>
       </div>
-      <OrdersTable data={orders} filter={true} />
-      <InstumentsTable data={symbols} filter={true} />
+      {orders.length == 0 ? (
+        <div className="flex justify-center items-center bg-white rounded-lg shadow">
+          <span>There is no orders saved at this moment</span>
+        </div>
+      ) : (
+        <OrdersTable data={orders} filter={true} />
+      )}
+      {symbols.length == 0 ? (
+        <div className="flex justify-center items-center bg-white rounded-lg shadow">
+          <span>There is no symbols saved at this moment</span>
+        </div>
+      ) : (
+        <InstumentsTable data={symbols} filter={true} />
+      )}
     </main>
   );
 }

@@ -14,8 +14,8 @@ export const Navbar = () => {
       label: "Orders & Symbols",
     },
     {
-      route: "/stored/anaucements",
-      label: "Anaucements",
+      route: "/stored/announcements",
+      label: "Announcements",
     },
   ];
 
