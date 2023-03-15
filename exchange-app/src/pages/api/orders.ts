@@ -22,7 +22,7 @@ export default async function handle(
       }) => {
         await prisma.orders.create({
           data: {
-            id,
+            id: String(id),
             symbol,
             side,
           },
@@ -32,7 +32,6 @@ export default async function handle(
 
     res.json({ message: "Orders saved successfully" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "An error ocurred trying to save orders" });
   }
 }

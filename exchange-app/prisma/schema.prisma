@@ -17,7 +17,7 @@ model Symbols{
 }
 
 model Orders {
-  id BigInt @id
+  id String @id
   symbol String
   side String
 }

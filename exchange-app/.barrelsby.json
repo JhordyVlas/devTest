@@ -2,7 +2,8 @@
   "directory": [
     "./src/common/hooks",
     "./src/components/layouts",
-    "./src/common/libs"
+    "./src/common/libs",
+    "./src/components/shared"
   ],
   "delete": true
 }
