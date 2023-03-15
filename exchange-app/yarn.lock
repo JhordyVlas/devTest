@@ -309,6 +309,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/line-clamp@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@tailwindcss/line-clamp@npm:0.4.2"
+  peerDependencies:
+    tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
+  checksum: 26b8135df24fff51c3d3790ae795bdc12bc4a7113fa22dcab80568ae6ee00710e2ed4154048958c472bb654061f0f1573b7ac5e004ae6222cbd5ac6fcf199478
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-table@npm:^8.7.9":
   version: 8.7.9
   resolution: "@tanstack/react-table@npm:8.7.9"
@@ -1616,6 +1625,7 @@ __metadata:
   dependencies:
     "@heroicons/react": ^2.0.16
     "@prisma/client": ^4.11.0
+    "@tailwindcss/line-clamp": ^0.4.2
     "@tanstack/react-table": ^8.7.9
     "@types/node": 18.15.2
     "@types/react": 18.0.28

@@ -21,3 +21,11 @@ model Orders {
   symbol String
   side String
 }
+
+model Announcements {
+  id Int @id
+  link String
+  title String
+  content String
+  date String
+}

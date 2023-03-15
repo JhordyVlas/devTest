@@ -1,14 +1,22 @@
 import { useSocket } from "@/common/hooks";
 import {
+  Announcement,
+  AnnouncementCard,
   Instrument,
   InstumentsTable,
   Order,
   OrdersTable,
 } from "@/components/shared";
+import { GetServerSideProps } from "next";
+import { ScriptProps } from "next/script";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 
-export default function Home() {
+interface Props extends ScriptProps {
+  announcements: Announcement[];
+}
+
+export default function Home({ announcements }: Props) {
   const [instruments, setInstruments] = useState([]);
   const [orders, setOrders] = useState([]);
 
@@ -93,6 +101,22 @@ export default function Home() {
     }
   };
 
+  const saveAnnouncements = async () => {
+    const res = await fetch("/api/announcements", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(announcements),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  };
+
   return (
     <main className="grid grid-cols-2 gap-3">
       <Toaster position="top-right" />
@@ -119,8 +143,42 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <InstumentsTable data={instruments} />
       <OrdersTable data={orders} />
+      <InstumentsTable data={instruments} />
+      <div className="col-span-2 flex w-full bg-white rounded-lg py-3 px-5 shadow justify-between items-center">
+        <div>
+          <h1 className="text-2xl">Announcements</h1>
+          <p className="block text-gray-500 text-sm">
+            To store the announcements in the local storage press save button
+          </p>
+        </div>
+        <div className="flex flex-col space-y-2">
+          <button
+            className="px-5 py-2 border-2 rounded-lg border-gray-200 hover:bg-gray-100"
+            onClick={saveAnnouncements}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <div className="col-span-2">
+        <div className="grid grid-cols-3 gap-3">
+          {announcements.map((announcement, index) => (
+            <AnnouncementCard {...announcement} key={index} />
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const result = await fetch("https://www.bitmex.com/api/v1/announcement");
+  const announcements = await result.json();
+
+  return {
+    props: {
+      announcements,
+    },
+  };
+};
